@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { SITE_CONFIG } from '../data/siteData';
 
 const NAV_LINKS = [
@@ -24,15 +24,10 @@ function NavLink({ label, onClick, isActive }) {
       onClick={onClick}
       className="relative text-[11px] tracking-[3px] uppercase font-medium text-[#A09888] hover:text-[#C9A84C] transition-colors duration-300 group py-1"
     >
-      {/* Glow text on hover */}
       <span className="relative z-10 transition-all duration-300 group-hover:drop-shadow-[0_0_8px_rgba(201,168,76,0.6)]">
         {label}
       </span>
-
-      {/* Underline: slides from center out */}
       <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-px bg-gradient-to-r from-transparent via-[#C9A84C] to-transparent group-hover:w-full transition-all duration-500" />
-
-      {/* Active dot */}
       {isActive && (
         <motion.span
           layoutId="navDot"
@@ -49,7 +44,6 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeLink, setActiveLink] = useState('#home');
   const [logoHovered, setLogoHovered] = useState(false);
-  const scanRef = useRef(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -79,7 +73,7 @@ export default function Navbar() {
             : 'bg-transparent'
         }`}
       >
-        {/* ── Animated gold scan line on border ── */}
+        {/* Animated gold scan line on border */}
         {scrolled && (
           <motion.div
             className="absolute bottom-0 left-0 h-px w-full overflow-hidden pointer-events-none"
@@ -98,7 +92,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-[72px] px-4 lg:px-12 max-w-[1700px] mx-auto">
 
           {/* ============================= */}
-          {/* LOGO */}
+          {/* LOGO                         */}
           {/* ============================= */}
           <button
             onClick={() => scrollTo('#home')}
@@ -107,7 +101,8 @@ export default function Navbar() {
             className="flex items-center gap-3 group relative z-10"
           >
             <div className="relative flex items-center justify-center">
-              {/* Corner bracket accents */}
+
+              {/* Corner bracket accents only — NO rotating ring */}
               {[
                 'top-0 left-0 border-t border-l',
                 'top-0 right-0 border-t border-r',
@@ -116,23 +111,17 @@ export default function Navbar() {
               ].map((cls, i) => (
                 <motion.span
                   key={i}
-                  className={`absolute w-2.5 h-2.5 border-[#C9A84C]/50 ${cls}`}
-                  animate={logoHovered ? { width: 14, height: 14, borderColor: 'rgba(201,168,76,0.9)' } : { width: 10, height: 10 }}
+                  className={`absolute border-[#C9A84C]/50 ${cls}`}
+                  animate={
+                    logoHovered
+                      ? { width: 14, height: 14, borderColor: 'rgba(201,168,76,0.9)' }
+                      : { width: 10, height: 10 }
+                  }
                   transition={{ duration: 0.3 }}
                 />
               ))}
 
-              {/* Rotating orbit ring */}
-              <motion.div
-                className="absolute inset-0 rounded-full border border-[#C9A84C]/10"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 12, repeat: Infinity, ease: 'linear' }}
-                style={{
-                  borderTopColor: 'rgba(201,168,76,0.5)',
-                }}
-              />
-
-              {/* Logo image — unchanged */}
+              {/* Logo image */}
               <img
                 src="/m2-logo.png"
                 alt="M2 Car Accessories"
@@ -154,13 +143,14 @@ export default function Navbar() {
                 animate={{ opacity: logoHovered ? 1 : 0, scale: logoHovered ? 1.3 : 1 }}
                 transition={{ duration: 0.4 }}
                 style={{
-                  background: 'radial-gradient(circle, rgba(201,168,76,0.18) 0%, rgba(201,168,76,0.02) 60%, transparent 100%)',
+                  background:
+                    'radial-gradient(circle, rgba(201,168,76,0.18) 0%, rgba(201,168,76,0.02) 60%, transparent 100%)',
                   filter: 'blur(8px)',
                 }}
               />
             </div>
 
-            {/* Brand text — unchanged layout */}
+            {/* Brand text */}
             <div className="hidden sm:flex flex-col justify-center leading-none">
               <span className="font-bebas text-[24px] tracking-[5px] text-white transition-all duration-300 group-hover:text-[#C9A84C] group-hover:drop-shadow-[0_0_12px_rgba(201,168,76,0.4)]">
                 M2
@@ -172,7 +162,7 @@ export default function Navbar() {
           </button>
 
           {/* ============================= */}
-          {/* DESKTOP NAV LINKS */}
+          {/* DESKTOP NAV LINKS            */}
           {/* ============================= */}
           <div className="hidden lg:flex items-center gap-7">
             {NAV_LINKS.map((link) => (
@@ -186,7 +176,7 @@ export default function Navbar() {
           </div>
 
           {/* ============================= */}
-          {/* CTA BUTTONS */}
+          {/* CTA BUTTONS                  */}
           {/* ============================= */}
           <div className="hidden lg:flex items-center gap-2">
 
@@ -216,14 +206,13 @@ export default function Navbar() {
               Call Now
             </motion.a>
 
-            {/* Book Now — shimmer effect */}
+            {/* Book Now */}
             <motion.button
               onClick={() => scrollTo('#appointment')}
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               className="relative overflow-hidden text-[10px] tracking-[3px] bg-[#C9A84C] text-[#0A0A0A] px-5 py-2.5 uppercase font-bold transition-all duration-300 hover:bg-[#E8C97A] hover:shadow-[0_4px_24px_rgba(201,168,76,0.45)]"
             >
-              {/* Shimmer sweep */}
               <motion.span
                 className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12"
                 initial={{ x: '-100%' }}
@@ -235,7 +224,7 @@ export default function Navbar() {
           </div>
 
           {/* ============================= */}
-          {/* HAMBURGER */}
+          {/* HAMBURGER                    */}
           {/* ============================= */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
@@ -262,7 +251,7 @@ export default function Navbar() {
       </motion.nav>
 
       {/* ============================= */}
-      {/* MOBILE MENU */}
+      {/* MOBILE MENU                  */}
       {/* ============================= */}
       <AnimatePresence>
         {menuOpen && (
@@ -281,20 +270,25 @@ export default function Navbar() {
               transition={{ duration: 0.5, delay: 0.1 }}
             />
 
-            {/* Mobile header */}
+            {/* Mobile header — NO spinning ring around logo */}
             <div className="flex items-center gap-3 mb-5 pb-5 border-b border-[#C9A84C]/10">
               <div className="relative">
-                {/* spinning ring around mobile logo */}
-                <motion.div
-                  className="absolute inset-0 rounded-full border border-transparent"
-                  style={{ borderTopColor: 'rgba(201,168,76,0.5)', borderRightColor: 'rgba(201,168,76,0.15)' }}
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 6, repeat: Infinity, ease: 'linear' }}
-                />
+                {/* Corner brackets only around mobile logo */}
+                {[
+                  'top-0 left-0 border-t border-l',
+                  'top-0 right-0 border-t border-r',
+                  'bottom-0 left-0 border-b border-l',
+                  'bottom-0 right-0 border-b border-r',
+                ].map((cls, i) => (
+                  <span
+                    key={i}
+                    className={`absolute w-2 h-2 border-[#C9A84C]/40 ${cls}`}
+                  />
+                ))}
                 <img
                   src="/m2-logo.png"
                   alt="M2"
-                  className="w-11 h-11 object-contain"
+                  className="w-11 h-11 object-contain relative z-10"
                   style={{
                     background: 'transparent',
                     mixBlendMode: 'screen',
@@ -366,7 +360,7 @@ export default function Navbar() {
             <motion.button
               onClick={() => scrollTo('#appointment')}
               whileTap={{ scale: 0.98 }}
-              className="relative overflow-hidden w-full mt-0 bg-[#C9A84C] text-[#0A0A0A] py-3.5 text-[11px] tracking-[4px] uppercase font-bold hover:bg-[#E8C97A] transition-all"
+              className="relative overflow-hidden w-full bg-[#C9A84C] text-[#0A0A0A] py-3.5 text-[11px] tracking-[4px] uppercase font-bold hover:bg-[#E8C97A] transition-all"
             >
               <motion.span
                 className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent -skew-x-12"

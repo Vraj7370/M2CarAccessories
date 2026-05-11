@@ -13,7 +13,7 @@ export const SITE_CONFIG = {
   phonePlain: "918155935351",   // for WhatsApp — country code + number, no spaces/+
   email: "mannpatel@m2caraccessories.com", // REPLACE with actual email
   address: "Shop No. 07, 08, Motipura, Near Avishkar Hospital, Himmatnagar, Gujarat - 383001",
-  googleMapsUrl: "https://maps.google.com/?q=Shop+No+10+11+Motipura+Near+Avishkar+Hospital+Himmatnagar+Gujarat+383001",
+  googleMapsUrl: "https://maps.app.goo.gl/KsfpZYXQucxQYkLY6?g_st=ic",
   instagram: "m2_car_accessories_",
   facebook: "https://facebook.com/m2caraccessories",
   youtube: "#",
